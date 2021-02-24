@@ -61,9 +61,10 @@ io.on('connection', (socket) => {
     // send location to client
     socket.on('sendLocation', (coords, callback) => {
         const user = getUser(socket.id)
-        io.to(user.room).emit('locationMessage', generateLocationMessage(user.username, `https://www.google.com/maps?=${coords.latitude},${coords.longitude}`))
+        io.to(user.room).emit('locationMessage', generateLocationMessage(user.username, `https://www.google.com/maps/search/?api=1&query=${coords.latitude},${coords.longitude}`))
         callback()
     })
+    // https://www.google.com/maps/search/?api=1&query=47.5951518,-122.3316393
 
     //reminder: user id is stored on socket.id
     socket.on('disconnect', () => {
